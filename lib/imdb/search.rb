@@ -23,10 +23,14 @@ module Imdb
 
     private
     def document
-      @document ||= Nokogiri::HTML(Imdb::Search.query(@query))
+      @document ||= Nokogiri::HTML(Imdb::Search.exact_query(@query))
     end
 
-    def self.query(query)
+    def self.exact_query(query)
+      open("http://akas.imdb.com/find?q=#{CGI::escape(query)};s=tt;exact=true")
+    end
+    
+def self.query(query)
       open("http://akas.imdb.com/find?q=#{CGI::escape(query)};s=tt")
     end
 
