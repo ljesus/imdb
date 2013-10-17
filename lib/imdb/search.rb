@@ -27,7 +27,7 @@ module Imdb
     end
 
     def self.exact_query(query)
-      open("http://akas.imdb.com/find?q=#{CGI::escape(query)};s=tt;exact=true")
+      open("http://akas.imdb.com/find?q=#{CGI::escape(query)}&exact=true&s=tt")
     end
     
 def self.query(query)
