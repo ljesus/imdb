@@ -23,17 +23,13 @@ module Imdb
 
     private
     def document
-      @document ||= Nokogiri::HTML(Imdb::Search.exact_query(@query))
+      @document ||= Nokogiri::HTML(Imdb::Search.query(@query))
     end
 
-    def self.exact_query(query)
+    def self.query(query)
       open("http://akas.imdb.com/find?q=#{CGI::escape(query)}&exact=true&s=tt")
     end
     
-def self.query(query)
-      open("http://akas.imdb.com/find?q=#{CGI::escape(query)};s=tt")
-    end
-
     def parse_movie
       id    = document.at("head/link[@rel='canonical']")['href'][/\d+/]
       title = document.at("h1").inner_html.split('<span').first.strip.imdb_unescape_html
